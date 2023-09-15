@@ -1,0 +1,12 @@
+.link {
+	padding: 0.2rem 0.7rem;
+	border-radius: 0.5rem;
+	background-color: var(--main-color);
+}
+
+.list {
+	display: flex;
+	flex-direction: row;
+	gap: 3rem;
+	justify-content: center;
+}

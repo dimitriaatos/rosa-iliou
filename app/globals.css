@@ -1,16 +1,30 @@
+:root {
+	--main-color: #F5F5F5;
+	--text-color: #122D75;
+}
+
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+	font-size: inherit;
 }
 
 html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
+	color: var(--text-color);
+	font-size: 22px;
+	user-select: none;
 }
 
 a {
   color: inherit;
   text-decoration: none;
+}
+
+li {
+	padding: 0;
+	list-style: none;
 }

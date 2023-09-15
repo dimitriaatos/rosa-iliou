@@ -1,8 +1,13 @@
-import './globals.css'
+import NavBar from '@/components/NavBar'
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import localFont from 'next/font/local'
+import Link from 'next/link'
+import './globals.css'
+import styles from './page.module.css'
 
-const inter = Inter({ subsets: ['latin'] })
+const PRFont = localFont({
+  src: './font/PFRegalTextPro-RegularA.woff2',
+})
 
 export const metadata: Metadata = {
   title: 'Rosa Iliou Archive',
@@ -16,7 +21,19 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={PRFont.className}>
+        <div className={styles.container}>
+          <header className={styles.header}>
+            <Link href="http://localhost:3000/" className={styles.title}>
+              <h1>Rosa Iliou Archive</h1>
+            </Link>
+          </header>
+          <main className={styles.main}>{children}</main>
+          <nav className={styles.nav}>
+            <NavBar />
+          </nav>
+        </div>
+      </body>
     </html>
   )
 }

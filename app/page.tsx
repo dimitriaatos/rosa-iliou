@@ -1,18 +1,15 @@
-import Image from 'next/image'
-import styles from './page.module.css'
-import Link from 'next/link'
+// import Image from 'next/image'
+// import styles from './page.module.css'
 
 export default function Home() {
-  return (
-    <>
-      <nav>
-        <ul>
-          <li>
-            <Link href="\about">About</Link>
-          </li>
-        </ul>
-      </nav>
-      <main className={styles.main}></main>
-    </>
-  )
+  // return (
+  //   <Image
+  //     src={}
+  //     alt="photos of projects"
+  //     sizes="100vw"
+  //     width={700}
+  //     height={475}
+  //     className={styles.image}
+  //   />
+  // )
 }
