@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 import localFont from 'next/font/local'
 import Link from 'next/link'
 import './globals.css'
-import styles from './page.module.css'
+import styles from './layout.module.css'
 import { api } from '@/common/helpers'
 
 const PRFont = localFont({
