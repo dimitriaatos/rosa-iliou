@@ -1,6 +1,6 @@
 import Link from 'next/link'
-import styles from './navbar.module.css'
 import { capitalizedFirstLetter } from '../common/helpers'
+import styles from './navbar.module.css'
 
 const routes = ['about', 'metal', 'wood', 'clay', 'jewelry'].map((slug) => ({
   path: slug,

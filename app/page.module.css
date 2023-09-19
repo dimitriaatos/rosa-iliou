@@ -1,6 +1,12 @@
+.container {
+	display: flex;
+	flex: 1 1 1px;
+	overflow: hidden;
+}
+
 .image {
-	object-fit: cover;
 	width: 100%;
-	/* position: initial; */
 	height: auto;
+	object-fit: cover;
+	object-position: center top;
 }

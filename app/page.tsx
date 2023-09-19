@@ -1,20 +1,23 @@
+import { api, getCmsUrl } from '@/common/helpers'
 import Image from 'next/image'
 import styles from './page.module.css'
-import { api } from '@/common/helpers'
 
 export default async function Home() {
+  const data = await api.getHome()
 
-	const data = await api.getHome()
+  const image = data.attributes.image.data.attributes
 
-	console.log(data.attributes.image)
+  const url = getCmsUrl() + image.url
+
   return (
-    <Image
-      src={data.attributes.image}
-      alt="photos of projects"
-      sizes="100vw"
-      width={700}
-      height={475}
-      className={styles.image}
-    />
+    <div className={styles.container}>
+      <Image
+        src={url}
+        alt="photos of projects"
+        className={styles.image}
+        width={image.width}
+        height={image.height}
+      />
+    </div>
   )
 }

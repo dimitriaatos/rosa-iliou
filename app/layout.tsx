@@ -1,10 +1,11 @@
+import { api } from '@/common/helpers'
 import NavBar from '@/components/NavBar'
+import clsx from 'clsx'
 import type { Metadata } from 'next'
 import localFont from 'next/font/local'
 import Link from 'next/link'
 import './globals.css'
 import styles from './layout.module.css'
-import { api } from '@/common/helpers'
 
 const PRFont = localFont({
   src: './font/PFRegalTextPro-RegularA.woff2',
@@ -27,18 +28,16 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <body className={PRFont.className}>
-        <div className={styles.container}>
-          <header className={styles.header}>
-            <Link href="/" className={styles.title}>
-              <h1>{data.attributes.title}</h1>
-            </Link>
-          </header>
-          <main className={styles.main}>{children}</main>
-          <nav className={styles.nav}>
-            <NavBar />
-          </nav>
-        </div>
+      <body className={clsx(PRFont.className, styles.container)}>
+        <header className={styles.header}>
+          <Link href="/" className={styles.title}>
+            <h1>{data.attributes.title}</h1>
+          </Link>
+        </header>
+        <main className={styles.main}>{children}</main>
+        <nav className={styles.nav}>
+          <NavBar />
+        </nav>
       </body>
     </html>
   )
