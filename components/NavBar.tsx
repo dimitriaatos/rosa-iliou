@@ -1,20 +1,27 @@
+import directus from '@/common/directus'
+import { useLocale } from 'next-intl'
 import Link from 'next/link'
-import { capitalizedFirstLetter } from '../common/helpers'
 import styles from './navbar.module.css'
 
-const routes = ['about', 'metal', 'wood', 'clay', 'jewelry'].map((slug) => ({
-  path: slug,
-  name: capitalizedFirstLetter(slug),
-}))
+export default async function NavBar() {
+  const locale = useLocale()
+  const { categories } = await directus.getCategories(locale)
+	const { about } = await directus.getAbout(locale)
 
-export default function NavBar() {
+  const pages = [about, ...categories].map((page) => {
+    return {
+      title: page?.translations?.[0]?.title,
+      path: page?.slug,
+    }
+  })
+
   return (
     <ul className={styles.list}>
-      {routes.map((route, index) => {
+      {pages.map((page, index) => {
         return (
           <li key={index}>
-            <Link href={`/${route.path}`} className={styles.link}>
-              {route.name}
+            <Link href={`/${page.path}`} className="roundButton">
+              {page.title}
             </Link>
           </li>
         )

@@ -1,0 +1,21 @@
+query GetHome ($locale: String) {
+	home {
+		image {
+			filename_disk
+			title
+			width
+			height
+		}
+		translations (filter: {
+			languages_code:
+				{ code:
+					{ _eq: $locale }
+				}
+			}) {
+			title
+			languages_code {
+				code
+			}
+		}
+	}
+}

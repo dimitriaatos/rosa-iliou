@@ -1,22 +1,15 @@
-import { api } from '@/common/helpers'
+import directus from '@/common/directus'
 import clsx from 'clsx'
-import { Metadata } from 'next'
+import { useLocale } from 'next-intl'
 import styles from './page.module.css'
 
-export async function generateMetadata(): Promise<Metadata> {
-  const data = await api.getHome()
-
-  return {
-    title: ['About', data.attributes.title].join(' | '),
-  }
-}
-
 export default async function About() {
-  const data = await api.getAbout()
+  const locale = useLocale()
+  const { about } = await directus.getAbout(locale)
 
   return (
     <article className={clsx(styles.about, 'textWidth')}>
-      {data.attributes.about ||
+      {about?.translations?.[0]?.description ||
         'Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel eius, nam iste similique numquam non! Possimus consequuntur ipsa assumenda, inventore numquam reiciendis ullam eligendi adipisci dolores, qui dolorem libero labore.'}
     </article>
   )

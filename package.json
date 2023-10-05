@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "codegen": "rm -rf ./@types/generated && graphql-codegen --config codegen.ts && eslint ./@types/generated/*.ts --fix",
+    "insomnia": "node generateQueriesFromInsomnia.mjs"
   },
   "dependencies": {
     "@types/node": "20.4.5",
@@ -14,10 +16,21 @@
     "@types/react-dom": "18.2.7",
     "clsx": "^2.0.0",
     "eslint": "8.46.0",
-    "eslint-config-next": "13.4.12",
-    "next": "13.4.12",
+    "eslint-config-next": "^13.5.4",
+    "graphql": "^16.8.1",
+    "graphql-request": "^6.1.0",
+    "graphql-tag": "^2.12.6",
+    "next": "^13.5.4",
+    "next-intl": "3.0.0-beta.19",
     "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "typescript": "5.1.6"
+    "react-dom": "18.2.0"
+  },
+  "devDependencies": {
+    "@graphql-codegen/cli": "5.0.0",
+    "@graphql-codegen/client-preset": "4.1.0",
+    "@graphql-codegen/typescript": "^4.0.1",
+    "@graphql-codegen/typescript-graphql-files-modules": "^3.0.0",
+    "@graphql-codegen/typescript-operations": "^4.0.1",
+    "typescript": "^5.2.2"
   }
 }

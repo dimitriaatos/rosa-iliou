@@ -1,0 +1,35 @@
+query GetCategories ($locale: String) {
+	categories {
+		slug
+		works {
+			image {
+				filename_disk
+				title
+				width
+				height
+			}
+			translations (filter: {
+			languages_code:
+				{ code:
+					{ _eq: $locale }
+				}
+			}) {
+				description
+				languages_code {
+					code
+				}
+			}
+		}
+		translations (filter: {
+			languages_code:
+				{ code:
+					{ _eq: $locale }
+				}
+			}) {
+			title
+			languages_code {
+				code
+			}
+		}
+	}
+}
