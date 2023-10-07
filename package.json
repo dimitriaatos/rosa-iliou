@@ -11,9 +11,11 @@
     "insomnia": "node generateQueriesFromInsomnia.mjs"
   },
   "dependencies": {
+    "@react-spring/web": "^9.7.3",
     "@types/node": "20.4.5",
     "@types/react": "18.2.17",
     "@types/react-dom": "18.2.7",
+    "@use-gesture/react": "^10.3.0",
     "clsx": "^2.0.0",
     "eslint": "8.46.0",
     "eslint-config-next": "^13.5.4",

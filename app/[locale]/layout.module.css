@@ -24,10 +24,12 @@
 	width: 100%;
 	display: flex;
 	justify-content: center;
+	align-items: center;
 	padding: 0.5rem 0;
 	position: sticky;
 	top: 0;
 	background-color: var(--background-color);
+	z-index: 2;
 }
 
 .title {

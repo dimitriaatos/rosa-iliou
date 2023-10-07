@@ -11,16 +11,16 @@ export default async function NavBar() {
   const pages = [about, ...categories].map((page) => {
     return {
       title: page?.translations?.[0]?.title,
-      path: page?.slug,
+      slug: page?.slug,
     }
   })
 
   return (
     <ul className={styles.list}>
-      {pages.map((page, index) => {
+      {pages.map((page) => {
         return (
-          <li key={index}>
-            <Link href={`/${page.path}`} className="roundButton">
+          <li key={page.slug}>
+            <Link href={`/${page.slug}`} className="roundButton">
               {page.title}
             </Link>
           </li>
