@@ -33,7 +33,7 @@
 
 .animated {
   background-size: cover;
-  box-shadow: 0px 10px 30px -5px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--shadow);
   will-change: transform;
   cursor: grab;
   touch-action: none;
