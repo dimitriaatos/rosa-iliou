@@ -1,12 +1,12 @@
 .container {
 	display: flex;
 	flex: 1 1 1px;
-	overflow: hidden;
+	overflow: scroll;
 }
 
 .image {
-	width: 100%;
+	/* width: 100%;
 	height: auto;
 	object-fit: cover;
-	object-position: center top;
+	object-position: center top; */
 }

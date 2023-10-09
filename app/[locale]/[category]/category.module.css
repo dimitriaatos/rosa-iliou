@@ -1,41 +1,47 @@
 .category {
-	background: linear-gradient(0deg, rgba(7, 7, 7, 0.3) 3.48%, rgba(217, 217, 217, 0.138) 70.34%);
 	flex: 1 1 1px;
 	position: relative;
 	display: flex;
 	align-items: center;
+	justify-content: center;
+	margin-bottom: calc(1rem * 2 + 0.2rem + 1rem);
 }
 
-.image {
-	position: absolute; 
-  left: 0; 
-  right: 0; 
-  margin-left: auto; 
-  margin-right: auto; 
-	height: auto;
-  width: 60vmin;
-	object-fit: contain;
-}
-
-.progressButton {
-	position: absolute;
+.progressContainer {
+	position: fixed;
 	top: 0;
 	bottom: 0;
 	width: min(50vw, 5rem);
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	background-repeat: no-repeat;
-  background-position: center;
-	background-size: 5vmin;
 	z-index: 2;
+	pointer-events: none;
+}
+
+.progressButton {
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 5vmin;
+	width: 3rem;
+	height: 3rem;
+	pointer-events: all;
+}
+
+.image {
+	position: absolute; 
+	object-fit: contain;
+	padding: 3rem;
+}
+
+.image:checked {
+	cursor: grabbing;
 }
 
 .animated {
   background-size: cover;
   box-shadow: var(--shadow);
   will-change: transform;
-  cursor: grab;
   touch-action: none;
   user-select: none;
   overflow: hidden;

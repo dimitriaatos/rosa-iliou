@@ -7,12 +7,13 @@ import { altFallback } from '@/common/constants'
 export default async function Home() {
   const locale = useLocale()
   const { home } = await directus.getHome(locale)
-  const image = home?.image
+    const image = home?.image
 
   return (
     <div className={styles.container}>
       {image?.filename_disk && (
         <Image
+          priority={true}
           src={getAssetURL(image.filename_disk)}
           alt={image.title || altFallback}
           className={styles.image}

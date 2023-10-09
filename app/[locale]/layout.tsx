@@ -8,10 +8,20 @@ import { notFound } from 'next/navigation'
 import './globals.css'
 import styles from './layout.module.css'
 import Head from 'next/head'
+import { Metadata } from 'next'
 
 const PRFont = localFont({
   src: './font/PFRegalTextPro-RegularA.woff2',
 })
+
+export const metadata: Metadata = {
+	viewport: {
+		width: 'device-width',
+		initialScale: 1,
+		userScalable: false,
+		maximumScale: 1,
+	}
+}
 
 export default async function RootLayout({
   children,
@@ -22,6 +32,16 @@ export default async function RootLayout({
 }) {
   const { languages } = await directus.getLanguages()
   const locales = languages.map(({ code }) => code)
+
+	const { categories } = await directus.getCategories(locale)
+  const { about } = await directus.getAbout(locale)
+
+  const pages = [about, ...categories].map((page) => {
+    return {
+      title: page?.translations?.[0]?.title,
+      slug: page?.slug,
+    }
+  })
 
   const isValidLocale = locales.some((cur) => cur === locale)
   if (!isValidLocale) notFound()
@@ -43,7 +63,7 @@ export default async function RootLayout({
         </header>
         <main className={styles.main}>{children}</main>
         <nav className={styles.nav}>
-          <NavBar />
+          <NavBar pages={pages} />
         </nav>
       </body>
     </html>

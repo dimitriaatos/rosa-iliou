@@ -1,28 +1,38 @@
-import directus from '@/common/directus'
-import { useLocale } from 'next-intl'
+'use client'
+
+import clsx from 'clsx'
 import Link from 'next/link'
+import { useParams, usePathname } from 'next/navigation'
 import styles from './navbar.module.css'
+import { Maybe } from 'graphql/jsutils/Maybe'
 
-export default async function NavBar() {
-  const locale = useLocale()
-  const { categories } = await directus.getCategories(locale)
-	const { about } = await directus.getAbout(locale)
+export default function NavBar({
+  pages,
+}: {
+  pages: Array<{
+    title: Maybe<string>;
+    slug: Maybe<string>;
+  }>;
+}) {
+  const {category} = useParams()
+	const pathname = usePathname()
 
-  const pages = [about, ...categories].map((page) => {
-    return {
-      title: page?.translations?.[0]?.title,
-      slug: page?.slug,
-    }
-  })
+	const currentSlug = category || pathname.split('/').pop()
 
   return (
     <ul className={styles.list}>
       {pages.map((page) => {
         return (
           <li key={page.slug}>
-            <Link href={`/${page.slug}`} className="roundButton">
-              {page.title}
-            </Link>
+            {page.slug === currentSlug ? (
+              <span className={clsx('roundButton', styles.selected)}>
+                {page.title}
+              </span>
+            ) : (
+              <Link href={`/${page.slug}`} className="roundButton">
+                {page.title}
+              </Link>
+            )}
           </li>
         )
       })}

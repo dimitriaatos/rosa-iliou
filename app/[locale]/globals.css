@@ -18,7 +18,11 @@ body {
 	color: var(--text-color);
 	font-size: 22px;
 	user-select: none;
-	
+	touch-action: none;
+}
+
+body {
+	background: linear-gradient(0deg, rgba(7, 7, 7, 0.3) 3.48%, rgba(217, 217, 217, 0.138) 70.34%);
 }
 
 a {

@@ -49,7 +49,9 @@ const CategoryClient = ({
       }
     }
     document.addEventListener('keydown', handler)
+    document.body.style.overflow = 'hidden'
     return () => {
+      document.body.style.overflow = 'auto'
       document.removeEventListener('keydown', handler)
     }
   }, [handleProgress])
@@ -59,20 +61,24 @@ const CategoryClient = ({
       {directions.map(
         (dir) =>
           !reachedEnd(dir) && (
-            <button
-              className={styles.progressButton}
-              style={{
-                backgroundImage: `url(${arrow[dir].src})`,
-                [dir]: 0,
-              }}
+            <div
               key={dir}
-              onClick={() => handleProgress(dir)}
-            />
+              className={styles.progressContainer}
+              style={{ [dir]: 0 }}
+            >
+              <button
+                className={styles.progressButton}
+                style={{
+                  backgroundImage: `url(${arrow[dir].src})`,
+                }}
+                onClick={() => handleProgress(dir)}
+              />
+            </div>
           )
       )}
       {works
         ?.filter((w, i) => i < numOfWorks)
-        ?.map((work, index, {length}) => {
+        ?.map((work, index, { length }) => {
           const image = work?.image as Directus_Files
           const num = ((2 * Math.PI) / length - 0.7) * index
           const { initOffsetDistance: distance } = workConstants
