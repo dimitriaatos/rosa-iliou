@@ -2,13 +2,13 @@
 
 import { Categories, Directus_Files } from '@/@types/generated/graphql'
 import right from '@/assets/right.svg'
-import Work from './Work'
-import { useCallback, useEffect, useState } from 'react'
-import { capitalizedFirstLetter, rangeLimit } from '@/common/helpers'
-import styles from './category.module.css'
 import { workConstants } from '@/common/constants'
+import { capitalizedFirstLetter, rangeLimit } from '@/common/helpers'
+import { useCallback, useEffect, useState } from 'react'
+import Work from './Work'
+import styles from './category.module.css'
 
-type Direction = 'right' | 'left';
+type Direction = 'right' | 'left'
 
 const arrow = { right, left: right }
 const directions: Direction[] = ['left', 'right']
@@ -19,7 +19,7 @@ const hArrowKeyCodes = directions.map(getLRKeyCodes)
 const CategoryClient = ({
   category,
 }: {
-  category: NonNullable<Categories>;
+  category: NonNullable<Categories>
 }) => {
   const works = category.works
   const [numOfWorks, setNumOfWorks] = useState<number>(1)
@@ -33,13 +33,13 @@ const CategoryClient = ({
         ])
       })
     },
-    [works?.length]
+    [works?.length],
   )
 
   const reachedEnd = useCallback(
     (dir: Direction) =>
       getDirBool(dir) ? numOfWorks >= (works?.length || 0) : numOfWorks <= 1,
-    [numOfWorks, works]
+    [numOfWorks, works],
   )
 
   useEffect(() => {
@@ -74,7 +74,7 @@ const CategoryClient = ({
                 onClick={() => handleProgress(dir)}
               />
             </div>
-          )
+          ),
       )}
       {works
         ?.filter((w, i) => i < numOfWorks)

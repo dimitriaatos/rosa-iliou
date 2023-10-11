@@ -1,5 +1,5 @@
-import insomnia from './insomnia.json' assert { type: 'json' }
 import { writeFile } from 'fs/promises'
+import insomnia from './insomnia.json' assert { type: 'json' }
 const path = './queries'
 
 const creatingFiles = insomnia.resources.filter(el => el._type == 'request').map(async (req) => {

@@ -6,11 +6,11 @@ import { getAssetURL } from '@/common/directus'
 import { useGesturePreventDefault } from '@/common/hooks'
 import { animated, useSpring } from '@react-spring/web'
 import {
-	createUseGesture,
-	dragAction,
-	pinchAction,
-	scrollAction,
-	wheelAction,
+  createUseGesture,
+  dragAction,
+  pinchAction,
+  scrollAction,
+  wheelAction,
 } from '@use-gesture/react'
 import Image from 'next/image'
 import { ElementRef, forwardRef, useRef } from 'react'
@@ -26,13 +26,13 @@ const WorkImage = forwardRef<
   }
   return (
     <Image
-			priority={true}
+      priority={true}
       className={styles.image}
       src={getAssetURL(image?.filename_disk || '')}
       key={image.filename_disk}
       alt={image.title || altFallback}
       ref={forwardedRef}
-			fill={true}
+      fill={true}
     />
   )
 })
@@ -52,8 +52,8 @@ const Work = ({
   image,
   initOffset,
 }: {
-  image: Directus_Files;
-  initOffset: [number, number];
+  image: Directus_Files
+  initOffset: [number, number]
 }) => {
   const [style, api] = useSpring(() => ({
     x: initOffset[0],
@@ -119,8 +119,6 @@ const Work = ({
           direction,
         } = state
 
-        const dir = direction[0] >= 0
-
         if (first) {
           const { width, height, x, y } = ref.current!.getBoundingClientRect()
           const tx = ox - (x + width / 2)
@@ -132,14 +130,14 @@ const Work = ({
           (memo[0] - (ms - 1) * memo[2]) *
           Math.pow(
             (s - scaleBounds.min) / (scaleBounds.max - scaleBounds.min),
-            0.5
+            0.5,
           )
 
         const y =
           (memo[1] - (ms - 1) * memo[3]) *
           Math.pow(
             (s - scaleBounds.min) / (scaleBounds.max - scaleBounds.min),
-            0.5
+            0.5,
           )
 
         api.start({ scale: s, x, y, immediate: true })
@@ -156,7 +154,7 @@ const Work = ({
         eventOptions: { passive: false },
       },
       pinch: { scaleBounds },
-    }
+    },
   )
 
   return <AnimatedImage image={image} style={style} ref={ref} />

@@ -2,7 +2,7 @@ import Image from 'next/image'
 import { ElementRef, useEffect } from 'react'
 
 export const useGesturePreventDefault = (ref: {
-  current: ElementRef<typeof Image>;
+  current: ElementRef<typeof Image>
 }) => {
   useEffect(() => {
     const handler = (e: Event) => {

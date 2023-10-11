@@ -1,6 +1,4 @@
-import {
-	Query
-} from '@/@types/generated/graphql'
+import { Query } from '@/@types/generated/graphql'
 import { GraphQLClient } from 'graphql-request'
 
 import GetAbout from '@/queries/GetAbout.gql'

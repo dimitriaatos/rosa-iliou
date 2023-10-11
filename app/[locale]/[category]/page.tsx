@@ -1,7 +1,7 @@
 import directus from '@/common/directus'
 import { useLocale } from 'next-intl'
-import styles from './category.module.css'
 import CategoryClient from './Category'
+import styles from './category.module.css'
 
 const CategoryServer = async ({ params }: { params: { category: string } }) => {
   const locale = useLocale()

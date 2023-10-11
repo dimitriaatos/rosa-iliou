@@ -17,12 +17,11 @@ const config: CodegenConfig = {
   generates: {
     '@types/generated/': {
       preset: 'client',
-      plugins: [
-        'typescript',
-        'typescript-operations',
-      ],
+      plugins: ['typescript', 'typescript-operations'],
     },
-    '@types/generated/modules.d.ts': { plugins: ['typescript-graphql-files-modules'] },
+    '@types/generated/modules.d.ts': {
+      plugins: ['typescript-graphql-files-modules'],
+    },
   },
 }
 

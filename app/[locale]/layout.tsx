@@ -2,38 +2,38 @@ import directus from '@/common/directus'
 import LocaleSwitch from '@/components/LocaleSwitch'
 import NavBar from '@/components/NavBar'
 import clsx from 'clsx'
+import { Metadata } from 'next'
 import localFont from 'next/font/local'
+import Head from 'next/head'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import './globals.css'
 import styles from './layout.module.css'
-import Head from 'next/head'
-import { Metadata } from 'next'
 
 const PRFont = localFont({
   src: './font/PFRegalTextPro-RegularA.woff2',
 })
 
 export const metadata: Metadata = {
-	viewport: {
-		width: 'device-width',
-		initialScale: 1,
-		userScalable: false,
-		maximumScale: 1,
-	}
+  viewport: {
+    width: 'device-width',
+    initialScale: 1,
+    userScalable: false,
+    maximumScale: 1,
+  },
 }
 
 export default async function RootLayout({
   children,
   params: { locale },
 }: {
-  children: React.ReactNode;
-  params: { locale: string };
+  children: React.ReactNode
+  params: { locale: string }
 }) {
   const { languages } = await directus.getLanguages()
   const locales = languages.map(({ code }) => code)
 
-	const { categories } = await directus.getCategories(locale)
+  const { categories } = await directus.getCategories(locale)
   const { about } = await directus.getAbout(locale)
 
   const pages = [about, ...categories].map((page) => {
