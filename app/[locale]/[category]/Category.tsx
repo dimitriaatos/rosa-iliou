@@ -1,6 +1,7 @@
 'use client'
 
 import { Categories, Directus_Files } from '@/@types/generated/graphql'
+import left from '@/assets/left.svg'
 import right from '@/assets/right.svg'
 import { workConstants } from '@/common/constants'
 import { capitalizedFirstLetter, rangeLimit } from '@/common/helpers'
@@ -10,7 +11,7 @@ import styles from './category.module.css'
 
 type Direction = 'right' | 'left'
 
-const arrow = { right, left: right }
+const arrow = { right, left }
 const directions: Direction[] = ['left', 'right']
 const getDirBool = (dir: string) => dir === 'right'
 const getLRKeyCodes = (dir: Direction) => `Arrow${capitalizedFirstLetter(dir)}`
