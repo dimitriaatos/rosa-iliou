@@ -1,4 +1,29 @@
 .about {
 	user-select: text;
-	margin-top: 4rem;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	overflow-y: scroll;
+	margin-top: 2rem;
+}
+
+.image {
+	margin-bottom: 1rem;
+}
+
+.navBackground {
+	width: 100%;
+	height: var(--nav-height);
+	position: fixed;
+	background-color: var(--main-color);
+	bottom: 0;
+}
+
+.navBackground::before {
+  background: linear-gradient(0deg, #F5F5F5 7.67%, rgba(255, 255, 255, 0) 99.94%);
+  content: "";
+  height: var(--nav-height);
+  position: absolute;
+  width: 100%;
+	bottom: var(--nav-height);
 }

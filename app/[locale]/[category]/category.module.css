@@ -4,7 +4,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	margin-bottom: calc(1rem * 2 + 0.2rem + 1rem);
+	margin-bottom: var(--nav-height)
 }
 
 .progressContainer {
@@ -32,6 +32,7 @@
 	position: absolute; 
 	object-fit: contain;
 	padding: 3rem;
+	touch-action: none;
 }
 
 .image:checked {
