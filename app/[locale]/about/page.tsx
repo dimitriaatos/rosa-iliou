@@ -22,7 +22,10 @@ export default async function About() {
             height={300}
           />
         )}
-        <div dangerouslySetInnerHTML={{ __html: description }} />
+        <div
+          dangerouslySetInnerHTML={{ __html: description }}
+          className={clsx(styles.description, 'cmsContent')}
+        />
       </article>
       <span className={styles.navBackground} />
     </>

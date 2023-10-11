@@ -31,7 +31,7 @@ a {
   text-decoration: none;
 }
 
-li {
+ul, ol {
 	padding: 0;
 	list-style: none;
 }
@@ -56,4 +56,30 @@ button {
 	font: inherit;
 	cursor: pointer;
 	outline: inherit;
+}
+
+.cmsContent ul {
+	list-style-type: "- ";
+	padding: 0.5rem 0;
+	padding-left: 1rem;
+}
+
+.cmsContent ol {
+	list-style-type: lower-latin;
+	margin: 0.5rem 0;
+	padding-left: 1rem;
+}
+
+.cmsContent blockquote {
+	color: gray;
+	padding-left: 1rem;
+	font-style: italic;
+	border-left-color: gray;
+	border-left-width: 3px;
+	border-left-style: solid;
+	margin: 0.5rem 0;
+}
+
+.cmsContent a {
+	text-decoration: underline;
 }

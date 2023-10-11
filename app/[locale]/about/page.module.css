@@ -17,6 +17,7 @@
 	position: fixed;
 	background-color: var(--main-color);
 	bottom: 0;
+	pointer-events: none;
 }
 
 .navBackground::before {
@@ -26,4 +27,9 @@
   position: absolute;
   width: 100%;
 	bottom: var(--nav-height);
+}
+
+.description {
+	padding: 0 0.5rem;
+	padding-bottom: calc(1.5 * var(--nav-height));
 }
