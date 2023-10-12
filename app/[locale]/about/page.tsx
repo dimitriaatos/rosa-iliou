@@ -30,6 +30,7 @@ export default async function About() {
       <article className={clsx(styles.about, 'textWidth')}>
         {image?.filename_disk && (
           <Image
+            priority={true}
             className={styles.image}
             src={getAssetURL(image.filename_disk)}
             alt={image.title || altFallback}

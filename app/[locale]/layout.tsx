@@ -4,7 +4,6 @@ import NavBar from '@/components/NavBar'
 import clsx from 'clsx'
 import { Metadata } from 'next'
 import localFont from 'next/font/local'
-import Head from 'next/head'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import './globals.css'
@@ -52,9 +51,6 @@ export default async function RootLayout({
   return (
     <html lang={locale}>
       <body className={clsx(PRFont.className, styles.container)}>
-        <Head>
-          <title>{title}</title>
-        </Head>
         <header className={styles.header}>
           <Link href="/" className={styles.title}>
             <h1>{title}</h1>

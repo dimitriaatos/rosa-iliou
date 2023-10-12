@@ -8,7 +8,7 @@ import { capitalizedFirstLetter, rangeLimit } from '@/common/helpers'
 import { useCallback, useEffect, useState } from 'react'
 import Work from './Work'
 import styles from './category.module.css'
-console.log({ left })
+
 type Direction = 'right' | 'left'
 type Category = {
   category: NonNullable<Categories>
@@ -76,22 +76,30 @@ const CategoryClient = ({ category }: Category) => {
             </div>
           ),
       )}
-      {works
-        ?.filter((w, i) => i < numOfWorks)
-        ?.map((work, index, { length }) => {
-          const image = work?.image as Directus_Files
-          const num = ((2 * Math.PI) / length - 0.7) * index
-          const { initOffsetDistance: distance } = workConstants
-          const initOffset: [number, number] =
-            index === 0
-              ? [0, 0]
-              : [Math.sin(num) * distance, Math.cos(num) * distance]
-          return (
-            image?.filename_disk && (
-              <Work image={image} initOffset={initOffset} key={index} />
-            )
+      {works?.map((work, index, { length }) => {
+        const image = work?.image as Directus_Files
+        const num = ((2 * Math.PI) / length - 0.7) * index
+        const { initOffsetDistance: distance } = workConstants
+        const initOffset: [number, number] =
+          index === 0
+            ? [0, 0]
+            : [Math.sin(num) * distance, Math.cos(num) * distance]
+        const displayed = index < numOfWorks
+        const selected = index + 1 === numOfWorks
+        return (
+          image?.filename_disk && (
+            <div style={{ display: displayed ? 'block' : 'none' }} key={index}>
+              <Work
+                {...{
+                  image,
+                  initOffset,
+                  selected,
+                }}
+              />
+            </div>
           )
-        })}
+        )
+      })}
     </>
   )
 }

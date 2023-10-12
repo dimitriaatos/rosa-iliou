@@ -13,26 +13,37 @@ import {
   wheelAction,
 } from '@use-gesture/react'
 import Image from 'next/image'
-import { ElementRef, forwardRef, useRef } from 'react'
+import {
+  ElementRef,
+  MouseEventHandler,
+  forwardRef,
+  useEffect,
+  useRef,
+} from 'react'
 import styles from './category.module.css'
 
+type WorkImage = {
+  image: Directus_Files
+  onDoubleClick: MouseEventHandler<HTMLImageElement>
+}
+
 // eslint-disable-next-line react/display-name
-const WorkImage = forwardRef<
-  ElementRef<typeof Image>,
-  { image: Directus_Files }
->(({ image }, forwardedRef) => {
-  return (
-    <Image
-      priority={true}
-      className={styles.image}
-      src={getAssetURL(image?.filename_disk || '')}
-      key={image.filename_disk}
-      alt={image.title || altFallback}
-      ref={forwardedRef}
-      fill={true}
-    />
-  )
-})
+const WorkImage = forwardRef<ElementRef<typeof Image>, WorkImage>(
+  ({ image, onDoubleClick }, forwardedRef) => {
+    return (
+      <Image
+        priority={true}
+        className={styles.image}
+        src={getAssetURL(image?.filename_disk || '')}
+        key={image.filename_disk}
+        alt={image.title || altFallback}
+        ref={forwardedRef}
+        fill={true}
+        onDoubleClick={onDoubleClick}
+      />
+    )
+  },
+)
 
 const useGesture = createUseGesture([
   dragAction,
@@ -45,13 +56,13 @@ const AnimatedImage = animated(WorkImage)
 
 const scaleBounds = { min: 1, max: 4 }
 
-const Work = ({
-  image,
-  initOffset,
-}: {
+type WorkProps = {
   image: Directus_Files
   initOffset: [number, number]
-}) => {
+  selected: boolean
+}
+
+const Work = ({ image, initOffset, selected }: WorkProps) => {
   const [style, api] = useSpring(() => ({
     x: initOffset[0],
     y: initOffset[1],
@@ -66,8 +77,20 @@ const Work = ({
       duration: 0,
     },
   }))
+  const initState = { x: initOffset[0], y: initOffset[1], scale: 1 } as const
   const ref = useRef<ElementRef<typeof Image>>(null)
   useGesturePreventDefault(ref)
+
+  useEffect(() => {
+    if (!selected && api) api.start(initState)
+  }, [selected, api])
+
+  const handleDoubleClick = () => {
+    api.start((i, state) => {
+      const prevScale = state.springs.scale.get()
+      return prevScale > 1.5 ? initState : { scale: 2 }
+    })
+  }
 
   useGesture(
     {
@@ -154,7 +177,14 @@ const Work = ({
     },
   )
 
-  return <AnimatedImage image={image} style={style} ref={ref} />
+  return (
+    <AnimatedImage
+      image={image}
+      style={style}
+      ref={ref}
+      onDoubleClick={handleDoubleClick}
+    />
+  )
 }
 
 export default Work
