@@ -1,9 +1,24 @@
 import { altFallback } from '@/common/constants'
 import directus, { getAssetURL } from '@/common/directus'
 import clsx from 'clsx'
+import { Metadata } from 'next'
 import { useLocale } from 'next-intl'
 import Image from 'next/image'
 import styles from './page.module.css'
+
+export async function generateMetadata(): Promise<Metadata> {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const locale = useLocale()
+  const { about } = await directus.getAbout(locale)
+  const { home } = await directus.getHome(locale)
+
+  const websiteTitle = home?.translations?.[0]?.title || ''
+  const pageTitle = about?.translations?.[0]?.title || ''
+
+  return {
+    title: `${pageTitle} | ${websiteTitle}`,
+  }
+}
 
 export default async function About() {
   const locale = useLocale()
