@@ -21,9 +21,6 @@ const WorkImage = forwardRef<
   ElementRef<typeof Image>,
   { image: Directus_Files }
 >(({ image }, forwardedRef) => {
-  const handleClose = () => {
-    console.log('close')
-  }
   return (
     <Image
       priority={true}

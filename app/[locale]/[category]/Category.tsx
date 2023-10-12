@@ -8,8 +8,11 @@ import { capitalizedFirstLetter, rangeLimit } from '@/common/helpers'
 import { useCallback, useEffect, useState } from 'react'
 import Work from './Work'
 import styles from './category.module.css'
-
+console.log({ left })
 type Direction = 'right' | 'left'
+type Category = {
+  category: NonNullable<Categories>
+}
 
 const arrow = { right, left }
 const directions: Direction[] = ['left', 'right']
@@ -17,13 +20,9 @@ const getDirBool = (dir: string) => dir === 'right'
 const getLRKeyCodes = (dir: Direction) => `Arrow${capitalizedFirstLetter(dir)}`
 const hArrowKeyCodes = directions.map(getLRKeyCodes)
 
-const CategoryClient = ({
-  category,
-}: {
-  category: NonNullable<Categories>
-}) => {
+const CategoryClient = ({ category }: Category) => {
   const works = category.works
-  const [numOfWorks, setNumOfWorks] = useState<number>(1)
+  const [numOfWorks, setNumOfWorks] = useState(1)
 
   const handleProgress = useCallback(
     (dir: Direction) => {
