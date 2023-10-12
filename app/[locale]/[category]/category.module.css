@@ -47,3 +47,18 @@
   user-select: none;
   overflow: hidden;
 }
+
+.description {
+	width: 200px;
+	height: 100%;
+	left: 0;
+	position: absolute;
+	font-size: 0.8rem;
+	padding: 4rem 0.5rem;
+	font-style: italic;
+}
+
+.description .content {
+	z-index: 3;
+	user-select: text;
+}

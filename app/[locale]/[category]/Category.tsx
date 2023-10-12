@@ -5,7 +5,8 @@ import left from '@/assets/left.svg'
 import right from '@/assets/right.svg'
 import { workConstants } from '@/common/constants'
 import { capitalizedFirstLetter, rangeLimit } from '@/common/helpers'
-import { useCallback, useEffect, useState } from 'react'
+import clsx from 'clsx'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import Work from './Work'
 import styles from './category.module.css'
 
@@ -56,8 +57,19 @@ const CategoryClient = ({ category }: Category) => {
     }
   }, [handleProgress])
 
+  const description = useMemo(() => {
+    return works?.[numOfWorks - 1]?.translations?.[0]?.description || ''
+  }, [works, numOfWorks])
   return (
     <>
+      <aside className={clsx(styles.description, 'cmsContent')}>
+        <div
+          dangerouslySetInnerHTML={{
+            __html: description,
+          }}
+          className={styles.content}
+        ></div>
+      </aside>
       {directions.map(
         (dir) =>
           !reachedEnd(dir) && (
