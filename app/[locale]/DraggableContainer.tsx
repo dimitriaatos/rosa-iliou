@@ -10,7 +10,9 @@ type DraggableContainer = {
 
 export default function DraggableContainer({ children }: DraggableContainer) {
   const ref = useRef<any>()
-  const { events } = useDraggable(ref)
+  const { events } = useDraggable(ref, {
+    applyRubberBandEffect: true,
+  })
 
   return (
     <div {...events} ref={ref} className={styles.container}>
