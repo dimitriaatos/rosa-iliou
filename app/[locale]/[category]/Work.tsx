@@ -45,7 +45,7 @@ const WorkImage = ({ image, initOffset, selected, displayed }: WorkImage) => {
         doubleClick={{}}
       >
         <TransformComponent
-          wrapperStyle={{ width: '100%', height: '100%' }}
+          wrapperStyle={{ width: '100%', height: '100%', overflow: 'visible' }}
           contentStyle={{
             width: '100%',
             height: '100%',
