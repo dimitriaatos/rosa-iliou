@@ -100,15 +100,15 @@ const CategoryClient = ({ category }: Category) => {
         const selected = index + 1 === numOfWorks
         return (
           image?.filename_disk && (
-            <div style={{ display: displayed ? 'block' : 'none' }} key={index}>
-              <Work
-                {...{
-                  image,
-                  initOffset,
-                  selected,
-                }}
-              />
-            </div>
+            <Work
+              key={index}
+              {...{
+                image,
+                initOffset,
+                selected,
+                displayed,
+              }}
+            />
           )
         )
       })}
