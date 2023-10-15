@@ -1,12 +1,9 @@
 .container {
-	display: flex;
 	flex: 1 1 1px;
 	overflow: scroll;
+	cursor: grab
 }
 
-.image {
-	/* width: 100%;
-	height: auto;
-	object-fit: cover;
-	object-position: center top; */
+.container:active{
+	cursor: grabbing;
 }
