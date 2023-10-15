@@ -3,14 +3,15 @@ import LocaleSwitch from '@/components/LocaleSwitch'
 import NavBar from '@/components/NavBar'
 import clsx from 'clsx'
 import { Metadata } from 'next'
-import localFont from 'next/font/local'
+import { Cardo } from 'next/font/google'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import './globals.css'
 import styles from './layout.module.css'
 
-const PRFont = localFont({
-  src: './font/PFRegalTextPro-RegularA.woff2',
+const cardo = Cardo({
+  weight: '400',
+  subsets: ['greek', 'latin'],
 })
 
 export const metadata: Metadata = {
@@ -50,7 +51,7 @@ export default async function RootLayout({
 
   return (
     <html lang={locale}>
-      <body className={clsx(PRFont.className, styles.container)}>
+      <body className={clsx(cardo.className, styles.container)}>
         <header className={styles.header}>
           <Link href="/" className={styles.title}>
             <h1>{title}</h1>
