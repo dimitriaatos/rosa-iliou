@@ -14,11 +14,10 @@ type WorkImage = {
   image: Directus_Files
   initOffset: [number, number]
   selected: boolean
-  displayed: boolean
 }
 
 // eslint-disable-next-line react/display-name
-const WorkImage = ({ image, initOffset, selected, displayed }: WorkImage) => {
+const WorkImage = ({ image, initOffset, selected }: WorkImage) => {
   const transformComponentRef = useRef<ReactZoomPanPinchRef | null>(null)
 
   useEffect(() => {
@@ -29,10 +28,7 @@ const WorkImage = ({ image, initOffset, selected, displayed }: WorkImage) => {
   }, [selected])
 
   return (
-    <div
-      className={styles.zoomWrapper}
-      style={{ display: displayed ? 'block' : 'none' }}
-    >
+    <div className={styles.zoomWrapper}>
       <TransformWrapper
         initialScale={1}
         smooth={false}
@@ -52,7 +48,6 @@ const WorkImage = ({ image, initOffset, selected, displayed }: WorkImage) => {
           }}
         >
           <Image
-            priority={true}
             className={styles.image}
             src={getAssetURL(image?.filename_disk || '')}
             key={image.filename_disk}
@@ -61,7 +56,6 @@ const WorkImage = ({ image, initOffset, selected, displayed }: WorkImage) => {
             style={{
               transform: `translate(${initOffset[0]}px, ${initOffset[1]}px)`,
             }}
-            // onDoubleClick={onDoubleClick}
           />
         </TransformComponent>
       </TransformWrapper>
