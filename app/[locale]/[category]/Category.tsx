@@ -115,7 +115,7 @@ const CategoryClient = ({ category }: Category) => {
         return (
           image?.filename_disk && (
             <Work
-              key={image.filename_disk}
+              key={image.id}
               {...{
                 image,
                 initOffset,

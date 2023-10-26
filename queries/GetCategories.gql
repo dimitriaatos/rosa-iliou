@@ -2,6 +2,7 @@ query GetCategories ($locale: String) {
 	categories {
 		slug
 		works {
+			id
 			image {
 				filename_disk
 				title
