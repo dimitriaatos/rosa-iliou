@@ -1,8 +1,9 @@
 import { Directus_Files } from '@/@types/generated/graphql'
 import { altFallback } from '@/common/constants'
 import { getAssetURL } from '@/common/directus'
+import clsx from 'clsx'
 import Image from 'next/image'
-import { useEffect, useRef } from 'react'
+import { CSSProperties, useEffect, useRef } from 'react'
 import {
   ReactZoomPanPinchRef,
   TransformComponent,
@@ -14,10 +15,18 @@ type WorkImage = {
   image: Directus_Files
   initOffset: [number, number]
   selected: boolean
+  style?: CSSProperties
+  className?: string
 }
 
 // eslint-disable-next-line react/display-name
-const WorkImage = ({ image, initOffset, selected }: WorkImage) => {
+const WorkImage = ({
+  image,
+  initOffset,
+  selected,
+  style,
+  className,
+}: WorkImage) => {
   const transformComponentRef = useRef<ReactZoomPanPinchRef | null>(null)
 
   useEffect(() => {
@@ -28,7 +37,7 @@ const WorkImage = ({ image, initOffset, selected }: WorkImage) => {
   }, [selected])
 
   return (
-    <div className={styles.zoomWrapper}>
+    <div className={clsx(styles.zoomWrapper, className)} style={style}>
       <TransformWrapper
         initialScale={1}
         smooth={false}

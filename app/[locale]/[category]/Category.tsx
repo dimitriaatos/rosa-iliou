@@ -112,9 +112,12 @@ const CategoryClient = ({ category }: Category) => {
             ? [0, 0]
             : [Math.sin(num) * distance, Math.cos(num) * distance]
         const selected = index === length - 1
+        const opacity =
+          length < maxImages - 1 ? 1 : index === 0 ? 0 : index === 1 ? 0.5 : 1
         return (
           image?.filename_disk && (
             <Work
+              style={{ opacity }}
               key={image.id}
               {...{
                 image,
