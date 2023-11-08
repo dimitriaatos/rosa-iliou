@@ -47,7 +47,6 @@ const WorkImage = ({
         disablePadding={true}
         maxScale={2}
         ref={transformComponentRef}
-        doubleClick={{}}
       >
         <TransformComponent
           wrapperStyle={{ width: '100%', height: '100%', overflow: 'visible' }}
