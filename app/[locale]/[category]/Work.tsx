@@ -61,6 +61,9 @@ const WorkImage = ({
             key={image.filename_disk}
             alt={image.title || altFallback}
             fill={true}
+            sizes="calc(100vw - 132px)"
+            priority={true}
+            quality={50}
             style={{
               transform: `translate(${initOffset[0]}px, ${initOffset[1]}px)`,
             }}

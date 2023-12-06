@@ -118,7 +118,7 @@ const CategoryClient = ({ category }: Category) => {
           image?.filename_disk && (
             <Work
               style={{ opacity }}
-              key={image.id}
+              key={work?.id}
               {...{
                 image,
                 initOffset,
