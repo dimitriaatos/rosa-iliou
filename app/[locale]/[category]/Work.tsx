@@ -2,7 +2,7 @@ import { Directus_Files } from '@/@types/generated/graphql'
 import { altFallback } from '@/common/constants'
 import { getAssetURL } from '@/common/directus'
 import clsx from 'clsx'
-import Image from 'next/image'
+import Image, { ImageLoaderProps } from 'next/image'
 import { CSSProperties, useEffect, useRef } from 'react'
 import {
   ReactZoomPanPinchRef,
@@ -10,6 +10,12 @@ import {
   TransformWrapper,
 } from 'react-zoom-pan-pinch'
 import styles from './category.module.css'
+
+const imageLoader = ({ src, width, quality }: ImageLoaderProps) => {
+  return `${getAssetURL(src)}?width=${width}&quality=${
+    quality || 75
+  }&format=webp`
+}
 
 type WorkImage = {
   image: Directus_Files
@@ -57,13 +63,14 @@ const WorkImage = ({
         >
           <Image
             className={styles.image}
-            src={getAssetURL(image?.filename_disk || '')}
+            src={image?.filename_disk || ''}
             key={image.filename_disk}
             alt={image.title || altFallback}
             fill={true}
-            sizes="calc(100vw - 132px)"
+            sizes="min(calc(100vw - 132px), 800px)"
             priority={true}
-            quality={50}
+            quality={60}
+            loader={imageLoader}
             style={{
               transform: `translate(${initOffset[0]}px, ${initOffset[1]}px)`,
             }}
