@@ -1,36 +1,26 @@
-query GetCategories ($locale: String) {
-	categories {
-		slug
-		works {
-			id
-			image {
-				filename_disk
-				title
-				width
-				height
-			}
-			translations (filter: {
-			languages_code:
-				{ code:
-					{ _eq: $locale }
-				}
-			}) {
-				description
-				languages_code {
-					code
-				}
-			}
-		}
-		translations (filter: {
-			languages_code:
-				{ code:
-					{ _eq: $locale }
-				}
-			}) {
-			title
-			languages_code {
-				code
-			}
-		}
-	}
+query GetCategories($locale: String) {
+  categories {
+    slug
+    works(limit: -1) {
+      id
+      image {
+        filename_disk
+        title
+        width
+        height
+      }
+      translations(filter: { languages_code: { code: { _eq: $locale } } }) {
+        description
+        languages_code {
+          code
+        }
+      }
+    }
+    translations(filter: { languages_code: { code: { _eq: $locale } } }) {
+      title
+      languages_code {
+        code
+      }
+    }
+  }
 }
