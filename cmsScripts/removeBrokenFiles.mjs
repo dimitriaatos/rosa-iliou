@@ -1,8 +1,8 @@
 import { deleteFiles, deleteItems, readFiles, readItems } from '@directus/sdk'
-import { client, login } from './client.mjs'
+import { getClient } from './client.mjs'
 
 const call = async () => {
-	await login()
+	const client = await getClient()
 
 	const files = await client.request(readFiles({
 		fields: ['*'],

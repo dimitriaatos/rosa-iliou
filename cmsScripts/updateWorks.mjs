@@ -1,5 +1,5 @@
 import { readFiles, readFolders, readItems } from '@directus/sdk'
-import { client, login } from './client.mjs'
+import { getClient } from './client.mjs'
 /**
  * - get folders
  * - get categories including files
@@ -8,7 +8,7 @@ import { client, login } from './client.mjs'
  * - create a work for each missing file
  */
 const call = async () => {
-	await login()
+	const client = await getClient()
 
 	// get folders
 	const folders = await client.request(readFolders())
