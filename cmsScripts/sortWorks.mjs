@@ -9,6 +9,7 @@ const call = async () => {
 	}))
 	const works = await client.request(readItems('works', {
 		fields: ['*'],
+		limit: -1,
 	}))
 
 	const idToDate = Object.fromEntries(files.map((file) => {
@@ -26,7 +27,7 @@ const call = async () => {
 	// 	return await client.request(updateItem(
 	// 		'works',
 	// 		work.id,
-	// 		{ sort: index + 1 }
+	// 		{ sort: index }
 	// 	))
 	// }))
 	console.log(results)
