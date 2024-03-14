@@ -4,6 +4,7 @@ import { Metadata } from 'next'
 import { useLocale } from 'next-intl'
 import Image from 'next/image'
 import DraggableContainer from './DraggableContainer'
+import styles from './page.module.css'
 
 export async function generateMetadata(): Promise<Metadata> {
   // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -24,11 +25,12 @@ export default async function Home() {
     <DraggableContainer>
       {image?.filename_disk && (
         <Image
+          className={styles.image}
           priority={true}
           src={getAssetURL(image.filename_disk)}
           alt={image.title || altFallback}
-          width={image.width || 100}
-          height={image.height || 100}
+          width={((image.width || 100) * 1) / 3}
+          height={((image.height || 100) * 1) / 3}
         />
       )}
     </DraggableContainer>

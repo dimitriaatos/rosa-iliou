@@ -19,8 +19,10 @@ export default function NavBar({
 
   const currentSlug = category || pathname.split('/').pop()
 
+  const isHome = ['', 'el'].some((s) => s === currentSlug)
+
   return (
-    <ul className={styles.list}>
+    <ul className={clsx(styles.list, isHome ? undefined : styles.hideOnPhone)}>
       {pages.map((page) => {
         return (
           <li key={page.slug}>

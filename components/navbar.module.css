@@ -11,3 +11,18 @@
 	border-width: 1px;
 	border-style: solid;
 }
+
+.hideOnPhone {
+	visibility: visible;
+}
+
+@media only screen and (max-width: 578px) {
+	.list {
+		flex-direction: column;
+		justify-content: flex-start;
+		align-items: center;
+	}
+	.hideOnPhone {
+		visibility: hidden;
+	}
+}

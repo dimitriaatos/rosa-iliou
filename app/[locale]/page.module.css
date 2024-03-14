@@ -1,9 +1,19 @@
 .container {
 	flex: 1 1 1px;
 	overflow: scroll;
-	cursor: grab
+	cursor: grab;
 }
 
 .container:active{
 	cursor: grabbing;
+}
+
+.image {
+
+}
+
+@media only screen and (max-width: 578px) {
+	.image {
+		display: none;
+	}
 }
