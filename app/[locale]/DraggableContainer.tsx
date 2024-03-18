@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { useDraggable } from 'react-use-draggable-scroll'
 import styles from './page.module.css'
 
@@ -14,8 +14,21 @@ export default function DraggableContainer({ children }: DraggableContainer) {
     applyRubberBandEffect: true,
   })
 
+  useEffect(() => {
+    const offset = ref.current.getBoundingClientRect().width / 2
+    ref.current.scroll({ left: offset })
+    ref.current.style.marginLeft = 0
+  }, [])
+
   return (
-    <div {...events} ref={ref} className={styles.container}>
+    <div
+      {...events}
+      ref={ref}
+      className={styles.container}
+      style={{
+        marginLeft: 'calc(100vw * -1/2)',
+      }}
+    >
       {children}
     </div>
   )

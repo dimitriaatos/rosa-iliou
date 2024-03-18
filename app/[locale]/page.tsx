@@ -29,8 +29,8 @@ export default async function Home() {
           priority={true}
           src={getAssetURL(image.filename_disk)}
           alt={image.title || altFallback}
-          width={((image.width || 100) * 1) / 3}
-          height={((image.height || 100) * 1) / 3}
+          width={((image.width || 100) * 1) / 2}
+          height={((image.height || 100) * 1) / 2}
         />
       )}
     </DraggableContainer>
