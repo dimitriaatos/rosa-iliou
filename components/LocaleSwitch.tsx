@@ -2,8 +2,7 @@
 
 import { GetLanguagesQuery } from '@/@types/generated/graphql'
 import clsx from 'clsx'
-import { usePathname } from 'next-intl/client'
-import LinkWithRef from 'next-intl/link'
+import { usePathname, Link } from '../navigation'
 
 const LocaleSwitch = ({
   locale,
@@ -17,13 +16,13 @@ const LocaleSwitch = ({
   const otherLocale = languages.find(({ code }) => code !== locale)
   const pathname = usePathname()
   return (
-    <LinkWithRef
+    <Link
       href={pathname}
-      locale={otherLocale?.code}
+      locale={otherLocale?.code as 'en'}
       className={clsx(className, 'roundButton')}
     >
       {otherLocale?.name}
-    </LinkWithRef>
+    </Link>
   )
 }
 

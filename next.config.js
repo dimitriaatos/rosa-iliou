@@ -1,7 +1,7 @@
 //@ts-check
-const withNextIntl = require('next-intl/plugin')(
-	'./i18n.ts'
-)
+import createNextIntlPlugin from 'next-intl/plugin'
+
+const withNextIntl = createNextIntlPlugin()
 
 const nextConfig = withNextIntl({
 	images: {
@@ -17,4 +17,4 @@ const nextConfig = withNextIntl({
 	},
 })
 
-module.exports = nextConfig
+export default nextConfig

@@ -37,12 +37,4 @@ const CategoryServer = async ({ params }: { params: { category: string } }) => {
   )
 }
 
-// export async function generateStaticParams() {
-//   const { categories } = await directus.getCategories('en')
-
-//   return categories.map((category) => ({
-//     category: category.slug,
-//   }))
-// }
-
 export default CategoryServer
