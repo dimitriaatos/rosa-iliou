@@ -7,7 +7,7 @@ import { workConstants } from '@/common/constants'
 import { capitalizedFirstLetter, rangeLimit } from '@/common/helpers'
 import clsx from 'clsx'
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import Work from './Work'
+import Work, { getImageLink } from './Work'
 import styles from './category.module.css'
 
 type Direction = 'right' | 'left'
@@ -34,6 +34,12 @@ const CategoryClient = ({ category }: Category) => {
           0,
           works?.length || 0,
         ])
+
+        // pre-fetch next image
+        if (newIndex < (works?.length || 0) - 1) {
+          const src = works?.[newIndex + 1]?.image?.filename_disk
+          src && fetch(getImageLink(src))
+        }
 
         setDisplayedWorks(() => {
           const displayed = (works || []).slice(

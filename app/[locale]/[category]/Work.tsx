@@ -12,9 +12,14 @@ import {
 import styles from './category.module.css'
 
 const imageLoader = ({ src, width, quality }: ImageLoaderProps) => {
+  width = 800
   return `${getAssetURL(src)}?width=${width}&quality=${
     quality || 75
   }&format=webp`
+}
+
+export const getImageLink = (src: string): string => {
+  return imageLoader({ src, width: 800, quality: 60 })
 }
 
 type WorkImage = {
