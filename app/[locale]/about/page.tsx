@@ -24,7 +24,10 @@ export default async function About() {
   const locale = useLocale()
   const { about } = await directus.getAbout(locale)
   const image = about?.image
+  const audio = about?.audio
   const description = about?.translations?.[0]?.description || ''
+  const audiotitle = about?.translations?.[0]?.audiotitle || ''
+  console.log(audio?.filename_disk)
   return (
     <>
       <article className={clsx(styles.about, 'textWidth')}>
@@ -42,6 +45,13 @@ export default async function About() {
           dangerouslySetInnerHTML={{ __html: description }}
           className={clsx(styles.description, 'cmsContent')}
         />
+        <h4>{audiotitle}</h4>
+        <audio controls className={styles.audio}>
+          <source
+            src={getAssetURL(audio?.filename_disk || '')}
+            type="audio/mpeg"
+          />
+        </audio>
       </article>
       <span className={styles.navBackground} />
     </>

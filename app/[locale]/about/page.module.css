@@ -5,6 +5,7 @@
 	flex-direction: column;
 	overflow-y: scroll;
 	margin-top: 2rem;
+	padding-bottom: calc(1.5 * var(--nav-height));
 }
 
 .image {
@@ -31,5 +32,10 @@
 
 .description {
 	padding: 0 0.5rem;
-	padding-bottom: calc(1.5 * var(--nav-height));
+	padding-bottom: 1rem;
+}
+
+.audio {
+	width: 100%;
+	margin: 1rem;
 }

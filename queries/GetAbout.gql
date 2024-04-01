@@ -1,27 +1,23 @@
-query GetAbout ($locale: String)  {
-	about {
-		slug
-		image {
-			filename_disk
-			title
-			width
-			height
-		}
-		audio {
-			filename_disk
-			duration
-		}
-		translations (filter: {
-			languages_code:
-				{ code:
-					{ _eq: $locale }
-				}
-			}){
-			title
-			description
-			languages_code {
-				code
-			}
-		}
-	}
+query GetAbout($locale: String) {
+  about {
+    slug
+    image {
+      filename_disk
+      title
+      width
+      height
+    }
+    audio {
+      filename_disk
+      duration
+    }
+    translations(filter: { languages_code: { code: { _eq: $locale } } }) {
+      title
+      description
+      audiotitle
+      languages_code {
+        code
+      }
+    }
+  }
 }
