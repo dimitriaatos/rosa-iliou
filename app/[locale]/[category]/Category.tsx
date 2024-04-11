@@ -15,7 +15,7 @@ type Category = {
   category: NonNullable<Categories>
 }
 
-const maxImages = 10
+const maxImages = 7
 const arrow = { right, left }
 const directions: Direction[] = ['left', 'right']
 const getDirBool = (dir: string) => dir === 'right'
@@ -25,7 +25,7 @@ const hArrowKeyCodes = directions.map(getLRKeyCodes)
 const CategoryClient = ({ category }: Category) => {
   const works = category.works
   const [workIndex, setWorkIndex] = useState(0)
-  const [displayedWorks, setDisplayedWorks] = useState([works?.[0]])
+  const [displayedWorks, setDisplayedWorks] = useState([works?.[0], works?.[1]])
 
   const handleProgress = useCallback(
     (dir: Direction) => {
@@ -35,16 +35,10 @@ const CategoryClient = ({ category }: Category) => {
           works?.length || 0,
         ])
 
-        // pre-fetch next image
-        if (newIndex < (works?.length || 0) - 1) {
-          const src = works?.[newIndex + 1]?.image?.filename_disk
-          src && fetch(getImageLink(src))
-        }
-
         setDisplayedWorks(() => {
           const displayed = (works || []).slice(
             Math.max(0, newIndex - maxImages),
-            newIndex + 1,
+            newIndex + 2,
           )
           return displayed
         })
@@ -57,7 +51,7 @@ const CategoryClient = ({ category }: Category) => {
 
   const reachedEnd = useCallback(
     (dir: Direction) =>
-      getDirBool(dir) ? workIndex >= (works?.length || 1) - 1 : workIndex <= 0,
+      getDirBool(dir) ? workIndex >= (works?.length || 1) - 2 : workIndex <= 0,
     [workIndex, works],
   )
 
@@ -117,13 +111,17 @@ const CategoryClient = ({ category }: Category) => {
           index === 0 && workIndex < maxImages
             ? [0, 0]
             : [Math.sin(num) * distance, Math.cos(num) * distance]
-        const selected = index === length - 1
+        const selected = index === length - 2
+        const next = index === length - 1
         const opacity =
           length < maxImages - 1 ? 1 : index === 0 ? 0 : index === 1 ? 0.5 : 1
         return (
           image?.filename_disk && (
             <Work
-              style={{ opacity }}
+              style={{
+                opacity: next ? 0 : opacity,
+                pointerEvents: next ? 'none' : undefined,
+              }}
               key={work?.id}
               {...{
                 image,

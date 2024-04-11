@@ -27,7 +27,6 @@ export default async function About() {
   const audio = about?.audio
   const description = about?.translations?.[0]?.description || ''
   const audiotitle = about?.translations?.[0]?.audiotitle || ''
-  console.log(audio?.filename_disk)
   return (
     <>
       <article className={clsx(styles.about, 'textWidth')}>

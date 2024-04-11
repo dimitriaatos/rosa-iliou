@@ -66,20 +66,29 @@ const WorkImage = ({
             height: '100%',
           }}
         >
-          <Image
-            className={styles.image}
-            src={image?.filename_disk || ''}
-            key={image.filename_disk}
-            alt={image.title || altFallback}
-            fill={true}
-            sizes="min(calc(100vw - 132px), 800px)"
-            priority={true}
-            quality={60}
-            loader={imageLoader}
+          {/* added an intermediate div to eliminate the warning of <Image /> about TransformComponent having position sticky */}
+          <div
             style={{
-              transform: `translate(${initOffset[0]}px, ${initOffset[1]}px)`,
+              width: '100%',
+              height: '100%',
+              position: 'relative',
             }}
-          />
+          >
+            <Image
+              className={styles.image}
+              src={image?.filename_disk || ''}
+              key={image.filename_disk}
+              alt={image.title || altFallback}
+              fill={true}
+              sizes="min(calc(100vw - 132px), 800px)"
+              priority={true}
+              quality={60}
+              loader={imageLoader}
+              style={{
+                transform: `translate(${initOffset[0]}px, ${initOffset[1]}px)`,
+              }}
+            />
+          </div>
         </TransformComponent>
       </TransformWrapper>
     </div>
