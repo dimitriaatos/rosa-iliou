@@ -18,6 +18,7 @@ query GetCategories($locale: String) {
     }
     translations(filter: { languages_code: { code: { _eq: $locale } } }) {
       title
+      description
       languages_code {
         code
       }

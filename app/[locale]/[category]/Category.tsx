@@ -70,7 +70,11 @@ const CategoryClient = ({ category }: Category) => {
   }, [handleProgress])
 
   const description = useMemo(() => {
-    return works?.[workIndex]?.translations?.[0]?.description || ''
+    return (
+      works?.[workIndex]?.translations?.[0]?.description ||
+      category?.translations?.[0]?.description ||
+      ''
+    )
   }, [works, workIndex])
 
   return (
