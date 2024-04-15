@@ -20,6 +20,7 @@ export const metadata: Metadata = {
     initialScale: 1,
     userScalable: false,
     maximumScale: 1,
+    minimumScale: 1,
   },
 }
 

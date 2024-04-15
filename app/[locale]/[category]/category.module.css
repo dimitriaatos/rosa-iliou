@@ -4,7 +4,8 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	margin-bottom: var(--nav-height)
+	margin-bottom: var(--nav-height);
+	overflow: hidden;
 }
 
 .progressContainer {
@@ -54,8 +55,9 @@
 	left: 0;
 	position: absolute;
 	font-size: 0.8rem;
-	padding: 4rem 0.5rem;
+	padding: 4vmin 2vmax;
 	font-style: italic;
+	z-index: 2;
 }
 
 .description .content {
