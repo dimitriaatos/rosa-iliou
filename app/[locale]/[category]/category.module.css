@@ -58,6 +58,7 @@
 	padding: 4vmin 2vmax;
 	font-style: italic;
 	z-index: 2;
+	pointer-events: none;
 }
 
 .description .content {

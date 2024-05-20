@@ -24,5 +24,6 @@
 	}
 	.hideOnPhone {
 		visibility: hidden;
+		display: none;
 	}
 }
