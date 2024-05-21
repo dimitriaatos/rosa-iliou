@@ -34,7 +34,7 @@ const CategoryClient = ({ category }: Category) => {
       setDisplayed((prev) => {
         const index = rangeLimit(prev.index + (getDirBool(dir) ? 1 : -1), [
           0,
-          works?.length || 0,
+          (works?.length || 1) - 2,
         ])
         const newWorks = (works || []).slice(
           Math.max(0, index - maxImages),
