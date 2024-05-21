@@ -1,4 +1,4 @@
-import directus from '@/common/directus'
+import directus, { getAssetURL } from '@/common/directus'
 import LocaleSwitch from '@/components/LocaleSwitch'
 import NavBar from '@/components/NavBar'
 import clsx from 'clsx'
@@ -8,20 +8,48 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import './globals.css'
 import styles from './layout.module.css'
+import { useLocale } from 'next-intl'
 
 const cardo = Cardo({
   weight: '400',
   subsets: ['greek', 'latin'],
 })
 
-export const metadata: Metadata = {
-  viewport: {
-    width: 'device-width',
-    initialScale: 1,
-    userScalable: false,
-    maximumScale: 1,
-    minimumScale: 1,
-  },
+export async function generateMetadata(): Promise<Metadata> {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const locale = useLocale()
+  const { home } = await directus.getHome(locale)
+  // const { about } = await directus.getAbout(locale)
+
+  const imageUrl = getAssetURL(
+    home?.image?.filename_disk + `?width=${1200}` || '',
+  )
+  const title = home?.translations?.[0]?.title || ''
+
+  return {
+    title: home?.translations?.[0]?.title || '',
+    twitter: {
+      images: imageUrl,
+    },
+    openGraph: {
+      type: 'website',
+      url: process.env.NEXT_PUBLIC_URL,
+      title,
+      siteName: title,
+      images: [
+        {
+          url: imageUrl,
+        },
+      ],
+    },
+    viewport: {
+      width: 'device-width',
+      initialScale: 1,
+      userScalable: false,
+      maximumScale: 1,
+      minimumScale: 1,
+    },
+  }
 }
 
 export default async function LocaleLayout({

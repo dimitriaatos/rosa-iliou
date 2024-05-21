@@ -1,4 +1,4 @@
-import directus from '@/common/directus'
+import directus, { getAssetURL } from '@/common/directus'
 import { Metadata } from 'next'
 import { useLocale } from 'next-intl'
 import CategoryClient from './Category'
@@ -20,8 +20,25 @@ export async function generateMetadata({
   const websiteTitle = home?.translations?.[0]?.title || ''
   const pageTitle = category?.translations?.[0]?.title || ''
 
+  const title = `${pageTitle} | ${websiteTitle}`
+  const imageUrl = getAssetURL(category?.works?.[0]?.image?.filename_disk || '')
+
   return {
-    title: `${pageTitle} | ${websiteTitle}`,
+    title,
+    twitter: {
+      images: imageUrl,
+    },
+    openGraph: {
+      type: 'website',
+      url: process.env.NEXT_PUBLIC_URL,
+      title,
+      siteName: title,
+      images: [
+        {
+          url: imageUrl,
+        },
+      ],
+    },
   }
 }
 

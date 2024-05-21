@@ -12,11 +12,31 @@ export async function generateMetadata(): Promise<Metadata> {
   const { about } = await directus.getAbout(locale)
   const { home } = await directus.getHome(locale)
 
+  const imageUrl = getAssetURL(
+    about?.image?.filename_disk + `?width=${1200}` || '',
+  )
+
   const websiteTitle = home?.translations?.[0]?.title || ''
   const pageTitle = about?.translations?.[0]?.title || ''
 
+  const title = `${pageTitle} | ${websiteTitle}`
+
   return {
-    title: `${pageTitle} | ${websiteTitle}`,
+    title,
+    twitter: {
+      images: imageUrl,
+    },
+    openGraph: {
+      type: 'website',
+      url: process.env.NEXT_PUBLIC_URL,
+      title,
+      siteName: title,
+      images: [
+        {
+          url: imageUrl,
+        },
+      ],
+    },
   }
 }
 
