@@ -24,35 +24,34 @@ const hArrowKeyCodes = directions.map(getLRKeyCodes)
 
 const CategoryClient = ({ category }: Category) => {
   const works = category.works
-  const [workIndex, setWorkIndex] = useState(0)
-  const [displayedWorks, setDisplayedWorks] = useState([works?.[0], works?.[1]])
+  const [displayed, setDisplayed] = useState({
+    works: [works?.[0], works?.[1]],
+    index: 0,
+  })
 
   const handleProgress = useCallback(
     (dir: Direction) => {
-      setWorkIndex((prev) => {
-        const newIndex = rangeLimit(prev + (getDirBool(dir) ? 1 : -1), [
+      setDisplayed((prev) => {
+        const index = rangeLimit(prev.index + (getDirBool(dir) ? 1 : -1), [
           0,
           works?.length || 0,
         ])
-
-        setDisplayedWorks(() => {
-          const displayed = (works || []).slice(
-            Math.max(0, newIndex - maxImages),
-            newIndex + 2,
-          )
-          return displayed
-        })
-
-        return newIndex
+        const newWorks = (works || []).slice(
+          Math.max(0, index - maxImages),
+          index + 2,
+        )
+        return { index, works: newWorks }
       })
     },
-    [works?.length],
+    [works],
   )
 
   const reachedEnd = useCallback(
     (dir: Direction) =>
-      getDirBool(dir) ? workIndex >= (works?.length || 1) - 2 : workIndex <= 0,
-    [workIndex, works],
+      getDirBool(dir)
+        ? displayed.index >= (works?.length || 1) - 2
+        : displayed.index <= 0,
+    [displayed, works],
   )
 
   useEffect(() => {
@@ -71,11 +70,11 @@ const CategoryClient = ({ category }: Category) => {
 
   const description = useMemo(() => {
     return (
-      works?.[workIndex]?.translations?.[0]?.description ||
+      works?.[displayed.index]?.translations?.[0]?.description ||
       category?.translations?.[0]?.description ||
       ''
     )
-  }, [works, workIndex])
+  }, [works, displayed.index, category?.translations])
 
   return (
     <>
@@ -105,14 +104,14 @@ const CategoryClient = ({ category }: Category) => {
             </div>
           ),
       )}
-      {displayedWorks?.map((work, index, { length }) => {
+      {displayed.works?.map((work, index, { length }) => {
         const image = work?.image as Directus_Files
         const num =
           ((2 * Math.PI) / (works?.length || 0) - 0.7) *
-          (index + Math.max(0, workIndex - maxImages))
+          (index + Math.max(0, displayed.index - maxImages))
         const { initOffsetDistance: distance } = workConstants
         const initOffset: [number, number] =
-          index === 0 && workIndex < maxImages
+          index === 0 && displayed.index < maxImages
             ? [0, 0]
             : [Math.sin(num) * distance, Math.cos(num) * distance]
         const selected = index === length - 2
@@ -122,14 +121,13 @@ const CategoryClient = ({ category }: Category) => {
         return (
           image?.filename_disk && (
             <Work
-              style={{
-                opacity: next ? 0 : opacity,
-                pointerEvents: next ? 'none' : undefined,
-              }}
               key={work?.id}
               {...{
+                opacity,
                 image,
-                initOffset,
+                initX: initOffset[0],
+                initY: initOffset[1],
+                next,
                 selected,
               }}
             />

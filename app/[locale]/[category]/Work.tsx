@@ -3,11 +3,12 @@ import { altFallback } from '@/common/constants'
 import { getAssetURL } from '@/common/directus'
 import clsx from 'clsx'
 import Image, { ImageLoaderProps } from 'next/image'
-import { CSSProperties, useEffect, useRef } from 'react'
+import { CSSProperties, memo, useEffect, useRef } from 'react'
 import {
   ReactZoomPanPinchRef,
   TransformComponent,
   TransformWrapper,
+  getMatrixTransformStyles,
 } from 'react-zoom-pan-pinch'
 import styles from './category.module.css'
 
@@ -24,75 +25,87 @@ export const getImageLink = (src: string): string => {
 
 type WorkImage = {
   image: Directus_Files
-  initOffset: [number, number]
+  initX: number
+  initY: number
   selected: boolean
+  next: boolean
+  opacity: number
   style?: CSSProperties
   className?: string
 }
 
 // eslint-disable-next-line react/display-name
-const WorkImage = ({
-  image,
-  initOffset,
-  selected,
-  style,
-  className,
-}: WorkImage) => {
-  const transformComponentRef = useRef<ReactZoomPanPinchRef | null>(null)
+const WorkImage = memo(
+  ({ image, initX, initY, selected, next, className, opacity }: WorkImage) => {
+    const transformComponentRef = useRef<ReactZoomPanPinchRef | null>(null)
 
-  useEffect(() => {
-    if (transformComponentRef.current && !selected) {
-      const { resetTransform } = transformComponentRef.current
-      resetTransform(200)
-    }
-  }, [selected])
+    useEffect(() => {
+      if (transformComponentRef.current && !selected) {
+        const { resetTransform } = transformComponentRef.current
+        resetTransform()
+      }
+    }, [selected])
 
-  return (
-    <div className={clsx(styles.zoomWrapper, className)} style={style}>
-      <TransformWrapper
-        initialScale={1}
-        smooth={false}
-        wheel={{
-          step: 0.1,
+    return (
+      <div
+        className={clsx(styles.zoomWrapper, className)}
+        style={{
+          opacity: opacity,
+          pointerEvents: next ? 'none' : undefined,
+          visibility: next ? 'hidden' : 'visible',
         }}
-        disablePadding={true}
-        maxScale={2}
-        ref={transformComponentRef}
       >
-        <TransformComponent
-          wrapperStyle={{ width: '100%', height: '100%', overflow: 'visible' }}
-          contentStyle={{
-            width: '100%',
-            height: '100%',
+        <TransformWrapper
+          initialScale={1}
+          customTransform={getMatrixTransformStyles}
+          smooth={false}
+          wheel={{
+            step: 0.1,
           }}
+          disablePadding={true}
+          maxScale={2}
+          ref={transformComponentRef}
         >
-          {/* added an intermediate div to eliminate the warning of <Image /> about TransformComponent having position sticky */}
-          <div
-            style={{
+          <TransformComponent
+            wrapperStyle={{
               width: '100%',
               height: '100%',
-              position: 'relative',
+              overflow: 'visible',
+            }}
+            contentStyle={{
+              width: '100%',
+              height: '100%',
             }}
           >
-            <Image
-              className={styles.image}
-              src={image?.filename_disk || ''}
-              key={image.filename_disk}
-              alt={image.title || altFallback}
-              fill={true}
-              sizes="min(calc(100vw - 132px), 800px)"
-              priority={true}
-              quality={60}
-              loader={imageLoader}
+            {/* added an intermediate div to eliminate the warning of <Image /> about TransformComponent having position sticky */}
+            <div
               style={{
-                transform: `translate(${initOffset[0]}px, ${initOffset[1]}px)`,
+                width: '100%',
+                height: '100%',
+                position: 'relative',
               }}
-            />
-          </div>
-        </TransformComponent>
-      </TransformWrapper>
-    </div>
-  )
-}
+            >
+              <Image
+                className={styles.image}
+                src={image?.filename_disk || ''}
+                key={image.filename_disk}
+                alt={image.title || altFallback}
+                fill={true}
+                // sizes="(max-width: 500px) 300px,(max-width: 768px) 400px, (max-width: 1800px) 400px,(max-width: 1920px) 400px, (min-width: 1921px) 400px"
+                sizes="min(calc(100vw - 132px), 400px)"
+                priority={true}
+                quality={100}
+                loader={imageLoader}
+                style={{
+                  transform: `translate(${initX}px, ${initY}px)`,
+                }}
+              />
+            </div>
+          </TransformComponent>
+        </TransformWrapper>
+      </div>
+    )
+  },
+)
 
 export default WorkImage
