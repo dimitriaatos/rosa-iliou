@@ -3,7 +3,7 @@ import LocaleSwitch from '@/components/LocaleSwitch'
 import NavBar from '@/components/NavBar'
 import clsx from 'clsx'
 import { Metadata } from 'next'
-import { Cardo } from 'next/font/google'
+import { Cardo, Source_Serif_4 } from 'next/font/google'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import './globals.css'
@@ -12,7 +12,12 @@ import { useLocale } from 'next-intl'
 
 const cardo = Cardo({
   weight: '400',
-  subsets: ['greek', 'latin'],
+  subsets: ['latin'],
+})
+
+const sourceSerif4 = Source_Serif_4({
+  weight: '400',
+  subsets: ['greek'],
 })
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -80,7 +85,12 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale}>
-      <body className={clsx(cardo.className, styles.container)}>
+      <body
+        className={clsx(
+          locale == 'en' ? cardo.className : sourceSerif4.className,
+          styles.container,
+        )}
+      >
         <header className={styles.header}>
           <Link href="/" className={styles.title}>
             <h1>{title}</h1>
