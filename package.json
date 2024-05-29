@@ -8,7 +8,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "codegen": "rm -rf ./@types/generated && graphql-codegen --config codegen.ts && eslint ./@types/generated/*.ts --fix",
+    "codegen": "rm -rf ./@types/generated && graphql-codegen --config codegen.ts && eslint ./@types/generated/*.ts --fix && node fixGeneratedTypes.mjs",
     "insomnia": "node generateQueriesFromInsomnia.mjs"
   },
   "dependencies": {
