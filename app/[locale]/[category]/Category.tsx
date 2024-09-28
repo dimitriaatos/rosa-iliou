@@ -9,6 +9,7 @@ import clsx from 'clsx'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import Work, { getImageLink } from './Work'
 import styles from './category.module.css'
+import { usePathname, useSearchParams, useRouter } from 'next/navigation'
 
 type Direction = 'right' | 'left'
 type Category = {
@@ -21,8 +22,20 @@ const directions: Direction[] = ['left', 'right']
 const getDirBool = (dir: string) => dir === 'right'
 const getLRKeyCodes = (dir: Direction) => `Arrow${capitalizedFirstLetter(dir)}`
 const hArrowKeyCodes = directions.map(getLRKeyCodes)
+const getWorksForIndex = (index: number, works?: any[] | null) => {
+  return (works || []).slice(Math.max(0, index - maxImages), index + 2)
+}
+const getSafeIndex = (index: number, max: number) => {
+  return rangeLimit(index, [0, (max || 1) - 2])
+}
 
 const CategoryClient = ({ category }: Category) => {
+  const searchParams = useSearchParams()
+
+  const indexParam = Number(searchParams.get('work'))
+  const router = useRouter()
+  const pathname = usePathname()
+
   const works = category.works
   const [displayed, setDisplayed] = useState({
     works: [works?.[0], works?.[1]],
@@ -32,19 +45,21 @@ const CategoryClient = ({ category }: Category) => {
   const handleProgress = useCallback(
     (dir: Direction) => {
       setDisplayed((prev) => {
-        const index = rangeLimit(prev.index + (getDirBool(dir) ? 1 : -1), [
-          0,
-          (works?.length || 1) - 2,
-        ])
-        const newWorks = (works || []).slice(
-          Math.max(0, index - maxImages),
-          index + 2,
+        const index = getSafeIndex(
+          prev.index + (getDirBool(dir) ? 1 : -1),
+          works?.length || 0,
         )
-        return { index, works: newWorks }
+        return { index, works: getWorksForIndex(index, works) }
       })
     },
     [works],
   )
+
+  useEffect(() => {
+    const workIndexString = displayed.index.toString()
+    const query = workIndexString ? `?work=${workIndexString}` : ''
+    router.push(`${pathname}${query}`)
+  }, [displayed.index])
 
   const reachedEnd = useCallback(
     (dir: Direction) =>
@@ -62,6 +77,11 @@ const CategoryClient = ({ category }: Category) => {
     }
     document.addEventListener('keydown', handler)
     document.body.style.overflow = 'hidden'
+
+    setDisplayed({
+      index: getSafeIndex(indexParam, works?.length || 0),
+      works: getWorksForIndex(indexParam, works),
+    })
     return () => {
       document.body.style.overflow = 'auto'
       document.removeEventListener('keydown', handler)
